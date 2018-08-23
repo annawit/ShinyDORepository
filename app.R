@@ -37,11 +37,11 @@ ui = shinyUI(
             navbarPage(
               "A Shiny App for Dissolved Oxygen",
               
-              # *Main Tab 1 -------------------------------------------------------------------
+# *Main Tab 1 -------------------------------------------------------------------
               tabPanel("Clickable Map",
                        tabsetPanel(
                          
-                         # ** Subpanel 1A -------------------------------------------------------------
+# ** Subpanel 1A -------------------------------------------------------------
                          tabPanel("Table",
                                   sidebarLayout(
                                     sidebarPanel(
@@ -64,14 +64,14 @@ ui = shinyUI(
                                   )
                          ),
                          
-                         # ** Subpanel 1B -------------------------------------------------------------
+# ** Subpanel 1B -------------------------------------------------------------
                          
                          
                          tabPanel("Plot of total number of samples per year",
                                   plotlyOutput("nplot"),
                                   plotlyOutput("avgdoplot")),
                          
-                         # ** Subpanel 1C -------------------------------------------------------------
+# ** Subpanel 1C -------------------------------------------------------------
                          
                          
                          tabPanel("Other overview visualizations",
@@ -81,7 +81,7 @@ ui = shinyUI(
                        )), 
               
               
-              # *Main Tab 2 -------------------------------------------------------------------
+# *Main Tab 2 -------------------------------------------------------------------
               tabPanel(
                 "Search by Station",
                 fluidPage(
@@ -160,7 +160,7 @@ ui = shinyUI(
                 
               ),
               
-              # *Main Tab 3 -------------------------------------------------------------------
+# *Main Tab 3 -------------------------------------------------------------------
               
               tabPanel("Search by DO pass/fail",
                        fluidPage(
@@ -196,8 +196,7 @@ ui = shinyUI(
 
 server = function(input, output, session) {
   
-  
-  # Main Tab 1 Items --------------------------------------------------------
+# Main Tab 1 Items --------------------------------------------------------
   
   output$map <- renderLeaflet({
     leaflet() %>%
@@ -334,9 +333,10 @@ server = function(input, output, session) {
   })
   
   
+  
   output$graph_to_table <- DT::renderDT({
     d <- event_data("plotly_selected", source = "A")
-    if(is.null(d) == T) return(NULL)
+    if (is.null(d) == T) return(NULL)
     # else stations_subset() %>% filter(input$x > min(d$x) )
     else stations_subset() %>% filter(between(input$x, min(d$x), max(d$x)))
     
